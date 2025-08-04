@@ -1,0 +1,75 @@
+   2 queues
+   2 and
+   1 When
+   1 Use
+   1 to
+   1 systems
+   1 Still
+   1 services
+   1 scale
+   1 retries
+   1 reliably
+   1 RabbitMQ
+   1 publishers
+   1 out
+   1 or
+   1 monitoring
+   1 messages
+   1 Message
+   1 lettering
+   1 latency
+   1 keep
+   1 idempotency
+   1 hot
+   1 help
+   1 healthy
+   1 handles
+   1 flood
+   1 dropped
+   1 dead
+   1 consumers
+   1 configurations
+   1 communicate
+   1 cause
+   1 can
+   1 bursts
+   1 bad
+   1 backpressure
+
+
+An example of how tokenization could work under the hood with a simple unix command:
+
+echo 'Message queues help services communicate reliably. RabbitMQ handles bursts, retries, and backpressure. When publishers flood, consumers can scale out. Still, bad configurations cause dropped messages, latency, or hot queues. Use monitoring, idempotency, and dead-lettering to keep systems healthy.' \
+| tr -cs 'a-zA-Z' '\n' \
+| sort \
+| uniq -c \
+| sort -n -r \
+> tokens.txt
+
+
+Here’s what each stage does:
+
+echo "…"
+Produces the input text.
+
+tr -cs "a-zA-Z" "\n"
+
+-c = complement: target non-letters (everything not a–z or A–Z).
+
+-s = squeeze: collapse runs of the target chars.
+
+Translation to "\n": replace any run of non-letters (spaces, punctuation, etc.) with one newline.
+➜ Result: one word per line, letters only (punctuation removed). Case is preserved.
+
+sort
+Alphabetically sorts the words (case-sensitive).
+
+uniq -c
+Collapses adjacent duplicates and counts them. (The prior sort ensures identical words are adjacent.)
+
+sort -n -r
+Sort numerically (-n) and in descending order (-r) by the counts → most frequent first.
+
+> tokens.txt
+Redirect the final ranked list to tokens.txt (overwrites if it exists).
+
